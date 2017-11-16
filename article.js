@@ -50,7 +50,8 @@ articles.create=function(req, res, payload,cb)
 	else cb({code:405, message:'Article is not valid'});
 }	
 
-articles.update = function (req,res,payload,cb) {
+articles.update = function (req,res,payload,cb) 
+{
     if (validator.isValid(payload)) {
         let index = news.findIndex(article => article.id === payload.id);
         if (index !== -1) {
@@ -66,4 +67,16 @@ articles.update = function (req,res,payload,cb) {
         cb({code: 400, message: 'Request invalid'});
     }
 };
+
+articles.delete=function(req,res,payload,cb)
+{
+	let index=news.findIndex(article=>article.id===payload.id)
+	if(index!==-1)
+	{
+		news.splice(index,1);
+		cb(null, news);
+		save(news);
+	}
+	else cb({code: 405, message: 'Article not found'});
+}
 	
