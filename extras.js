@@ -19,3 +19,15 @@ extras.save = function (data) {
         }
     });
 };
+
+extras.logRequest = function (url, body, time) {
+    fs.appendFile("Logs/" + new Date().toISOString().slice(0,10).replace(/-/g,"") + ".txt",
+        time + " :\n" + "\turl : " + url + "\n\tbody : " + body + "\r\n", (err) => {
+            if (err) {
+                console.error(err);
+            }
+            else {
+                console.log("log updated");
+            }
+        });
+};

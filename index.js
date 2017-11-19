@@ -5,7 +5,7 @@ const port = 3000;
 
 const articles=require("./article");
 const comments=require("./comments");
-//const logs=require("./logs");
+const extras=require("./extras");
 
 const handlers = {
   '/api/articles/readall': articles.readall,
@@ -53,8 +53,8 @@ function parseBodyJson(req, cb) {
     body.push(chunk);
   }).on('end', function() {
     body = Buffer.concat(body).toString();
-    //extras.logRequest(req.url, body,new Date().toISOString());
-    //console.log("body : " + body);
+    extras.logRequest(req.url, body,new Date().toISOString());
+    console.log("body : " + body);
     if(body !== "")
     {
         params = JSON.parse(body);
