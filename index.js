@@ -14,7 +14,7 @@ const handlers = {
   '/api/articles/update': articles.update,
   '/api/articles/delete': articles.delete,
   '/api/comments/create': comments.create,
-  //'/api/comments/delete': comments.delete
+  '/api/comments/delete': comments.delete
 };
 
 const server = http.createServer((req, res) => {
