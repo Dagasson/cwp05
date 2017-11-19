@@ -4,6 +4,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 const articles=require("./article");
+const comments=require("./comments");
 //const logs=require("./logs");
 
 const handlers = {
@@ -12,7 +13,7 @@ const handlers = {
   '/api/articles/create': articles.create,
   '/api/articles/update': articles.update,
   '/api/articles/delete': articles.delete,
-  //'/api/comments/create': comments.create,
+  '/api/comments/create': comments.create,
   //'/api/comments/delete': comments.delete
 };
 
