@@ -2,25 +2,8 @@ const http=require('http');
 const fs = require('fs');
 let news=require("./articles.json");
 let validator=require("./validator.js");
+let extras=require("./extras.js");
 const articles=exports;
-let sessionid=0;
-
-
-getid = function () {
-    return Date.now() + sessionid++;
-}
-
-save = function (data) {
-   // console.log(data);
-    fs.writeFileSync("articles.json", JSON.stringify(data), "utf8", (err) => {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            console.log("articles updated");
-        }
-    });
-};
 
 articles.readall=function(req,res,payload,cb)
 {
@@ -42,10 +25,10 @@ articles.read=function(req,res,payload,cb)
 articles.create=function(req, res, payload,cb)
 {
 	if(validator.isValid(payload)){
-	payload.id=getid();
+	payload.id=extras.getid();
 	news.push(payload);
 	cb(null, payload);
-	save(news);
+	extras.save(news);
 	}
 	else cb({code:405, message:'Article is not valid'});
 }	
@@ -57,7 +40,7 @@ articles.update = function (req,res,payload,cb)
         if (index !== -1) {
             news[index] = payload;
             cb(null, payload);
-            save(news);
+            extras.save(news);
         }
         else {
             cb({code: 405, message: 'Article not found'});
@@ -75,7 +58,7 @@ articles.delete=function(req,res,payload,cb)
 	{
 		news.splice(index,1);
 		cb(null, news);
-		save(news);
+		extras.save(news);
 	}
 	else cb({code: 405, message: 'Article not found'});
 }
